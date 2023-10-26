@@ -1,5 +1,5 @@
 ifneq ($(shell uname),Linux)
-    export LEGACY=1
+    export LEGACY=0
 endif
 
 all: release
