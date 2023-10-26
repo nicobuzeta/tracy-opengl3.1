@@ -70,8 +70,8 @@ Backend::Backend( const char* title, const std::function<void()>& redraw, RunQue
     glfwWindowHint( GLFW_VISIBLE, 0 );
 #endif
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
-    glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 2 );
-    glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+    glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
+    // glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
 #ifdef __APPLE__
     glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
 #endif
@@ -96,7 +96,7 @@ Backend::Backend( const char* title, const std::function<void()>& redraw, RunQue
 #ifdef __EMSCRIPTEN__
     ImGui_ImplOpenGL3_Init( "#version 100" );
 #else
-    ImGui_ImplOpenGL3_Init( "#version 150" );
+    ImGui_ImplOpenGL3_Init( "#version 120" );
 #endif
 
     s_redraw = redraw;

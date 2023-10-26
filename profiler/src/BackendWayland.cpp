@@ -683,7 +683,7 @@ Backend::Backend( const char* title, const std::function<void()>& redraw, RunQue
 
     constexpr EGLint eglCtxAttrib[] = {
         EGL_CONTEXT_MAJOR_VERSION, 3,
-        EGL_CONTEXT_MINOR_VERSION, 2,
+        EGL_CONTEXT_MINOR_VERSION, 1,
         EGL_CONTEXT_OPENGL_PROFILE_MASK,  EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT,
         EGL_NONE
     };
@@ -693,7 +693,7 @@ Backend::Backend( const char* title, const std::function<void()>& redraw, RunQue
     res = eglMakeCurrent( s_eglDpy, s_eglSurf, s_eglSurf, s_eglCtx );
     if( res != EGL_TRUE ) { fprintf( stderr, "Cannot make EGL context current!\n" ); exit( 1 ); }
 
-    ImGui_ImplOpenGL3_Init( "#version 150" );
+    ImGui_ImplOpenGL3_Init( "#version 120" );
 
     wl_display_roundtrip( s_dpy );
     s_toplevel = xdg_surface_get_toplevel( s_xdgSurf );
