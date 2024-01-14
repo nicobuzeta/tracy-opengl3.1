@@ -10,23 +10,20 @@
     <Filter Include="common">
       <UniqueIdentifier>{e39d3623-47cd-4752-8da9-3ea324f964c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="getopt">
-      <UniqueIdentifier>{74a14f40-f52d-41c1-8b19-1f8bf2a7c9c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="zstd">
-      <UniqueIdentifier>{40f983b8-059b-4eb4-b8ed-af6bd709c264}</UniqueIdentifier>
+      <UniqueIdentifier>{9ec18988-3ab7-4c05-a9d0-46c0a68037de}</UniqueIdentifier>
     </Filter>
     <Filter Include="zstd\common">
-      <UniqueIdentifier>{4ff9626a-71f8-4c7b-b940-928709e34950}</UniqueIdentifier>
+      <UniqueIdentifier>{5ee9ba63-2914-4027-997e-e743a294bba6}</UniqueIdentifier>
     </Filter>
     <Filter Include="zstd\compress">
-      <UniqueIdentifier>{28c6483b-84eb-495c-9c98-e830545a232f}</UniqueIdentifier>
+      <UniqueIdentifier>{a166d032-7be0-4d07-9f85-a8199cc1ec7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="zstd\decompress">
-      <UniqueIdentifier>{aeb60a40-d098-408e-a8c6-3de1c75cd9b4}</UniqueIdentifier>
+      <UniqueIdentifier>{438fff23-197c-4b6f-91f0-74f8b3878571}</UniqueIdentifier>
     </Filter>
     <Filter Include="zstd\dictBuilder">
-      <UniqueIdentifier>{375ceb06-6b2f-4a00-af80-64d17bcadaac}</UniqueIdentifier>
+      <UniqueIdentifier>{e5c7021a-e0e4-45c2-b461-e806bc036d5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,7 +33,7 @@
     <ClCompile Include="..\..\..\server\TracyWorker.cpp">
       <Filter>server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\update.cpp">
+    <ClCompile Include="..\..\src\import-fuchsia.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\server\TracyThreadCompress.cpp">
@@ -45,29 +42,35 @@
     <ClCompile Include="..\..\..\server\TracyTaskDispatch.cpp">
       <Filter>server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\server\TracyPrint.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\server\TracyMmap.cpp">
       <Filter>server</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\server\TracyTextureCompression.cpp">
       <Filter>server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\getopt\getopt.c">
-      <Filter>getopt</Filter>
+    <ClCompile Include="..\..\..\zstd\common\debug.c">
+      <Filter>zstd\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\decompress\huf_decompress.c">
-      <Filter>zstd\decompress</Filter>
+    <ClCompile Include="..\..\..\zstd\common\entropy_common.c">
+      <Filter>zstd\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\decompress\zstd_ddict.c">
-      <Filter>zstd\decompress</Filter>
+    <ClCompile Include="..\..\..\zstd\common\error_private.c">
+      <Filter>zstd\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\decompress\zstd_decompress.c">
-      <Filter>zstd\decompress</Filter>
+    <ClCompile Include="..\..\..\zstd\common\fse_decompress.c">
+      <Filter>zstd\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\decompress\zstd_decompress_block.c">
-      <Filter>zstd\decompress</Filter>
+    <ClCompile Include="..\..\..\zstd\common\pool.c">
+      <Filter>zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zstd\common\threading.c">
+      <Filter>zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zstd\common\xxhash.c">
+      <Filter>zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\zstd\common\zstd_common.c">
+      <Filter>zstd\common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\zstd\compress\fse_compress.c">
       <Filter>zstd\compress</Filter>
@@ -108,29 +111,17 @@
     <ClCompile Include="..\..\..\zstd\compress\zstdmt_compress.c">
       <Filter>zstd\compress</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\debug.c">
-      <Filter>zstd\common</Filter>
+    <ClCompile Include="..\..\..\zstd\decompress\huf_decompress.c">
+      <Filter>zstd\decompress</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\entropy_common.c">
-      <Filter>zstd\common</Filter>
+    <ClCompile Include="..\..\..\zstd\decompress\zstd_ddict.c">
+      <Filter>zstd\decompress</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\error_private.c">
-      <Filter>zstd\common</Filter>
+    <ClCompile Include="..\..\..\zstd\decompress\zstd_decompress.c">
+      <Filter>zstd\decompress</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\fse_decompress.c">
-      <Filter>zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\pool.c">
-      <Filter>zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\threading.c">
-      <Filter>zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\xxhash.c">
-      <Filter>zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\zstd\common\zstd_common.c">
-      <Filter>zstd\common</Filter>
+    <ClCompile Include="..\..\..\zstd\decompress\zstd_decompress_block.c">
+      <Filter>zstd\decompress</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\zstd\dictBuilder\cover.c">
       <Filter>zstd\dictBuilder</Filter>
@@ -159,14 +150,8 @@
     <ClCompile Include="..\..\..\public\common\TracySystem.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\OfflineSymbolResolver.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\OfflineSymbolResolverAddr2Line.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\OfflineSymbolResolverDbgHelper.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\..\server\TracyPrint.cpp">
+      <Filter>server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +185,6 @@
     <ClInclude Include="..\..\..\server\TracyTaskDispatch.hpp">
       <Filter>server</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\server\TracyPrint.hpp">
-      <Filter>server</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\server\TracyFileRead.hpp">
       <Filter>server</Filter>
     </ClInclude>
@@ -212,62 +194,11 @@
     <ClInclude Include="..\..\..\server\TracyTextureCompression.hpp">
       <Filter>server</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\getopt\getopt.h">
-      <Filter>getopt</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\zstd\zstd.h">
       <Filter>zstd</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\zstd\zstd_errors.h">
       <Filter>zstd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\decompress\zstd_ddict.h">
-      <Filter>zstd\decompress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\decompress\zstd_decompress_block.h">
-      <Filter>zstd\decompress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\decompress\zstd_decompress_internal.h">
-      <Filter>zstd\decompress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\hist.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_internal.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_literals.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_sequences.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_superblock.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_cwksp.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_double_fast.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_fast.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_lazy.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_ldm.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_ldm_geartab.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstd_opt.h">
-      <Filter>zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\zstd\compress\zstdmt_compress.h">
-      <Filter>zstd\compress</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\zstd\common\bitstream.h">
       <Filter>zstd\common</Filter>
@@ -310,6 +241,54 @@
     </ClInclude>
     <ClInclude Include="..\..\..\zstd\common\zstd_trace.h">
       <Filter>zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\hist.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_internal.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_literals.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_sequences.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_compress_superblock.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_cwksp.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_double_fast.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_fast.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_lazy.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_ldm.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_ldm_geartab.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstd_opt.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\compress\zstdmt_compress.h">
+      <Filter>zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\decompress\zstd_ddict.h">
+      <Filter>zstd\decompress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\decompress\zstd_decompress_block.h">
+      <Filter>zstd\decompress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\zstd\decompress\zstd_decompress_internal.h">
+      <Filter>zstd\decompress</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\zstd\zdict.h">
       <Filter>zstd</Filter>
@@ -371,8 +350,8 @@
     <ClInclude Include="..\..\..\public\common\TracyYield.hpp">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\OfflineSymbolResolver.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\..\server\TracyPrint.hpp">
+      <Filter>server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

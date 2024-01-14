@@ -45,6 +45,14 @@
 #  include <vector>
 #endif
 
+#ifdef __QNX__
+#  include <stdint.h>
+#  include <stdio.h>
+#  include <string.h>
+#  include <sys/syspage.h>
+#  include <sys/stat.h>
+#endif
+
 #include <algorithm>
 #include <assert.h>
 #include <atomic>
@@ -115,6 +123,10 @@ extern "C" typedef BOOL (WINAPI *t_GetLogicalProcessorInformationEx)( LOGICAL_PR
 #  include <mutex>
 #endif
 
+#ifdef __QNX__
+extern char* __progname;
+#endif
+
 namespace tracy
 {
 
@@ -157,7 +169,11 @@ static std::vector<MappingInfo> ParseMappings()
     {
         uintptr_t start_addr;
         uintptr_t end_addr;
+#if defined(__LP64__)
         if( sscanf( line, "%lx-%lx", &start_addr, &end_addr ) != 2 ) continue;
+#else
+        if (sscanf( line, "%dx-%dx", &start_addr, &end_addr ) != 2 ) continue;
+#endif
         char* first_space = strchr( line, ' ' );
         if( !first_space ) continue;
         char* perm = first_space + 1;
@@ -400,6 +416,8 @@ static const char* GetProcessName()
 #elif defined __APPLE__ || defined BSD
     auto buf = getprogname();
     if( buf ) processName = buf;
+#elif defined __QNX__
+    processName = __progname;
 #endif
     return processName;
 }
@@ -436,6 +454,10 @@ static const char* GetProcessExecutablePath()
 #elif defined __NetBSD__
     static char buf[1024];
     readlink( "/proc/curproc/exe", buf, 1024 );
+    return buf;
+#elif defined __QNX__
+    static char buf[_PC_PATH_MAX + 1];
+    _cmdname(buf);
     return buf;
 #else
     return nullptr;
@@ -515,6 +537,8 @@ static const char* GetHostInfo()
     ptr += sprintf( ptr, "OS: BSD (NetBSD)\n" );
 #elif defined __OpenBSD__
     ptr += sprintf( ptr, "OS: BSD (OpenBSD)\n" );
+#elif defined __QNX__
+    ptr += sprintf( ptr, "OS: QNX\n" );
 #else
     ptr += sprintf( ptr, "OS: unknown\n" );
 #endif
@@ -687,6 +711,21 @@ static const char* GetHostInfo()
     size_t sz = sizeof( memSize );
     sysctlbyname( "hw.physmem", &memSize, &sz, nullptr, 0 );
     ptr += sprintf( ptr, "RAM: %zu MB\n", memSize / 1024 / 1024 );
+#elif defined __QNX__
+    struct asinfo_entry *entries = SYSPAGE_ENTRY(asinfo);
+    size_t count = SYSPAGE_ENTRY_SIZE(asinfo) / sizeof(struct asinfo_entry);
+    char *strings = SYSPAGE_ENTRY(strings)->data;
+
+    uint64_t memSize = 0;
+    size_t i;
+    for (i = 0; i < count; i++) {
+        struct asinfo_entry *entry = &entries[i];
+        if (strcmp(strings + entry->name, "ram") == 0) {
+            memSize += entry->end - entry->start + 1;
+        }
+    }
+    memSize = memSize / 1024 / 1024;
+    ptr += sprintf( ptr, "RAM: %llu MB\n", memSize);
 #else
     ptr += sprintf( ptr, "RAM: unknown\n" );
 #endif
@@ -1404,7 +1443,15 @@ Profiler::Profiler()
 void Profiler::SpawnWorkerThreads()
 {
 #ifdef TRACY_HAS_SYSTEM_TRACING
-    if( SysTraceStart( m_samplingPeriod ) )
+    // use TRACY_NO_SYS_TRACE=1 to force disabling sys tracing (even if available in the underlying system)
+    // as it can have significant impact on the size of the traces
+    const char* noSysTrace = GetEnvVar( "TRACY_NO_SYS_TRACE" );
+    const bool disableSystrace = (noSysTrace && noSysTrace[0] == '1');
+    if( disableSystrace )
+    {
+        TracyDebug("TRACY: Sys Trace was disabled by 'TRACY_NO_SYS_TRACE=1'\n");
+    }
+    else if( SysTraceStart( m_samplingPeriod ) )
     {
         s_sysTraceThread = (Thread*)tracy_malloc( sizeof( Thread ) );
         new(s_sysTraceThread) Thread( SysTraceWorker, nullptr );
@@ -1684,6 +1731,12 @@ void Profiler::Worker()
     new(m_broadcast) UdpBroadcast();
 #  ifdef TRACY_ONLY_LOCALHOST
     const char* addr = "127.255.255.255";
+#  elif defined TRACY_CLIENT_ADDRESS
+    const char* addr = TRACY_CLIENT_ADDRESS;
+#  elif defined __QNX__
+     // global broadcast address of 255.255.255.255 is not well-supported by QNX,
+     // use the interface broadcast address instead, e.g. "const char* addr = 192.168.1.255;"
+#    error Need to specify TRACY_CLIENT_ADDRESS for a QNX target.
 #  else
     const char* addr = "255.255.255.255";
 #  endif

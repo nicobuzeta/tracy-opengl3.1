@@ -766,6 +766,11 @@ static void DrawContents()
                                 badVer.state = tracy::BadVersionState::LegacyVersion;
                                 badVer.version = e.version;
                             }
+                            catch( const tracy::LoadFailure& e )
+                            {
+                                badVer.state = tracy::BadVersionState::LoadFailure;
+                                badVer.msg = e.msg;
+                            }
                         } );
                     }
                 }
@@ -779,13 +784,13 @@ static void DrawContents()
                 }
             } );
         }
+#endif
 
         if( badVer.state != tracy::BadVersionState::Ok )
         {
             if( loadThread.joinable() ) { loadThread.join(); }
             tracy::BadVersion( badVer, s_bigFont );
         }
-#endif
 
         if( !clients.empty() )
         {
